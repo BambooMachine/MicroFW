@@ -28,14 +28,23 @@ class Configurator implements IConfigurator
             );
         }
 
+        $this->parseConfig();
         $this->config = $config;
     }
 
     /**
-     * @TODO
+     * @return void
      */
     public function parseConfig()
-    {}
+    {
+        foreach ($this->config as $item) {
+            if (is_array($item)) {
+                throw new \InvalidArgumentException(
+                    'Config values cannot be arrays. Only one level of nesting is allowed.'
+                );
+            }
+        }
+    }
 
     /**
      * @param $key mixed
