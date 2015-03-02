@@ -5,28 +5,28 @@ use MicroFW\Http\IRequest;
 
 class Request implements IRequest
 {
-    /** @var $host string */
+    /** @var string */
     private $host;
 
-    /** @var $port int */
+    /** @var int */
     private $port;
 
-    /** @var $headers array */
+    /** @var array */
     private $headers;
 
-    /** @var $path string */
+    /** @var string */
     private $path;
 
-    /** @var $POST array */
+    /** @var array */
     private $POST;
 
-    /** @var $GET array */
+    /** @var array */
     private $GET;
 
-    /** @var $method string */
+    /** @var string */
     private $method;
 
-    /** @var $cookies array */
+    /** @var array */
     private $cookies;
 
     public function __construct()
@@ -36,8 +36,8 @@ class Request implements IRequest
         $this->headers = getallheaders();
         $this->path = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
         $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->POST = [];
-        $this->GET = [];
+        $this->POST = $_POST;
+        $this->GET = $_GET;
         $this->cookies = [];
     }
 
