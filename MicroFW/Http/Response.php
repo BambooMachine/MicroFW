@@ -7,7 +7,7 @@ class Reponse implements IResponse
     private $contentType;
     private $content;
 
-    public function __construct($content='', $statusCode=200, $contentType='text/html')
+    public function __construct($content = '', $statusCode = 200, $contentType = 'text/html')
     {
         $this->content = $content;
         $this->statusCode = $statusCode;
@@ -16,7 +16,7 @@ class Reponse implements IResponse
 
     public function getHeaders()
     {
-        return NULL;
+        return null;
     }
 
     public function getStatusCode()
