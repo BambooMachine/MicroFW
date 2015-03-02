@@ -1,15 +1,14 @@
 <?php
 namespace MicroFW\Http;
 
+use MicroFW\Http\IResponse;
+
 class Response implements IResponse
 {
-    /** @var $statusCode int */
-    private $statusCode;
-
-    /** @var $contentType string */
+    /** @var string */
     private $contentType;
 
-    /** @var $content string */
+    /** @var string */
     private $content;
 
     /**
@@ -20,16 +19,36 @@ class Response implements IResponse
     public function __construct($content = '', $statusCode = 200, $contentType = 'text/html')
     {
         $this->content = $content;
-        $this->statusCode = $statusCode;
-        $this->contentType = $contentType;
+        $this->setContentType($contentType);
+
+        http_response_code($statusCode);
     }
 
     /**
-     * @return null
+     * @return array
      */
     public function getHeaders()
     {
-        return null;
+        return headers_list();
+    }
+
+    /**
+     * @param $name string
+     * @param $value string
+     * @return void
+     */
+    public function setHeader($name, $value)
+    {
+        header($name . ': ' . $value);
+    }
+
+    /**
+     * @param $name string
+     * @return void
+     */
+    public function removeHeader($name)
+    {
+        header_remove($name);
     }
 
     /**
@@ -37,7 +56,7 @@ class Response implements IResponse
      */
     public function getStatusCode()
     {
-        return $this->statusCode;
+        return http_response_code();
     }
 
     /**
@@ -46,6 +65,16 @@ class Response implements IResponse
     public function getContentType()
     {
         return $this->contentType;
+    }
+
+    /**
+     * @param $contentType string
+     * @return void
+     */
+    public function setContentType($contentType)
+    {
+        $this->contentType = $contentType;
+        $this->setHeader('Content-Type', $contentType);
     }
 
     /**
