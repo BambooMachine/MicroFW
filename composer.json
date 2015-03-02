@@ -1,0 +1,17 @@
+{
+    "name": "bamboomachine/micro-fw",
+    "description": "Micro framework developed by BambooMachine community.",
+    "require-dev": {
+        "nette/tester": "~1.3"
+    },
+    "license": "See LICENSE.md",
+    "authors": [
+        {
+            "name": "Radim Sückr",
+            "email": "radim.suckr@gmail.com",
+            "name": "Lukáš Pohlreich",
+            "email": "pohlreichlukas@gmail.com"
+        }
+    ],
+    "require": {}
+}
