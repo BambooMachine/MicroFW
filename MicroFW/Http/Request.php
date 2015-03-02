@@ -14,13 +14,13 @@ class Request implements IRequest
     private $method;
     private $cookies;
 
-    public function __construct($host, $port, $headers, $path, $method)
+    public function __construct()
     {
-        $this->host = $host;
-        $this->port = $port;
-        $this->headers = $headers;
-        $this->path = $path;
-        $this->method = $method;
+        $this->host = $_SERVER['HTTP_HOST'];
+        $this->port = $_SERVER['SERVER_PORT'];
+        $this->headers = getallheaders();
+        $this->path = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+        $this->method = $_SERVER['REQUEST_METHOD'];
         $this->POST = [];
         $this->GET = [];
         $this->cookies = [];
