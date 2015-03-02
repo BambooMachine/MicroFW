@@ -12,7 +12,7 @@ Pull request must meet the following requirements:
 * Maximum characters for line is 85
 * Indent 4 spaces
 * Control structures (if, while, switch, for, etc.) have one space between control keyword and opening parenthesis
-* Opening curly bracket is on same line as control keyword, method name, etc.
+* Opening curly bracket is on same line as control keyword
 
 ### Example:
 ```
@@ -21,9 +21,10 @@ if ($someVariable && $anotherVariable) {
     functionCall();
 }
 
-class ClassExample {
-    public function helloWorld() {
+class ClassExample
+{
+    public function helloWorld()
+    {
         echo("Hello World");
     }
 }
-```
