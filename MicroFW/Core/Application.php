@@ -1,5 +1,5 @@
 <?php
-namespace MicroFW;
+namespace MicroFW\Core;
 
 use MicroFW\Http\Request;
 
