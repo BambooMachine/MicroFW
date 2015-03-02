@@ -21,6 +21,9 @@ class Request implements IRequest
         $this->headers = $headers;
         $this->path = $path;
         $this->method = $method;
+        $this->POST = array();
+        $this->GET = array();
+        $this->cookies = array();
     }
 
     public function getHost()
