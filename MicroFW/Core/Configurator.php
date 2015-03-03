@@ -28,8 +28,8 @@ class Configurator implements IConfigurator
             );
         }
 
-        $this->parseConfig();
         $this->config = $config;
+        $this->parseConfig();
     }
 
     /**
