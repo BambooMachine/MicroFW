@@ -3,11 +3,11 @@ namespace MicroFW\Core;
 
 class Configurator implements IConfigurator
 {
-    /** @var $config array */
+    /** @var array */
     private $config;
 
     /**
-     * @param $config array
+     * @param array
      */
     public function __construct(array $config = null)
     {
