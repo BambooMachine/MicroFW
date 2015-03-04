@@ -1,6 +1,8 @@
 <?php
 namespace MicroFW\Core;
 
+use MicroFW\Core\ReadOnlyAttributeException;
+
 class PHPConfigurator implements IConfigurator, \ArrayAccess
 {
     /** @var array */
@@ -23,7 +25,7 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
      */
     public static function create($projectPath, $configFile)
     {
-        $config = require_once $projectPath . $configFile;
+        $config = require_once($projectPath . '/' . $configFile);
         if (!is_array($config)) {
             throw new \InvalidArgumentException(
                 'Configuration file must return array! '
@@ -58,7 +60,9 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
      * @return void
      */
     public function offsetUnset($key)
-    {}
+    {
+        throw new ReadOnlyAttributeException("$key is read-only!");
+    }
 
     /**
      * @param $key mixed
@@ -66,7 +70,9 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
      * @return void
      */
     public function offsetSet($key, $value)
-    {}
+    {
+        throw new ReadOnlyAttributeException("$key is read-only!");
+    }
 
     /**
      * @param $config array

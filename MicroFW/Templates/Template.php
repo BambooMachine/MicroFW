@@ -38,7 +38,7 @@ class Template
     public function render()
     {
         $templateDir = self::$configurator['TEMPLATE_DIR'];
-        $fullPath = $templateDir . '/' . $templatePath;
+        $fullPath = $templateDir . '/' . $this->templatePath;
         $content = file_get_contents($fullPath);
 
         return $content;

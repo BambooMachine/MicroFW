@@ -1,9 +1,9 @@
 <?php
 namespace MicroFW\Core;
 
-use MicroFW\Core\Configurator;
 use MicroFW\Http\Request;
 use MicroFW\Http\Response;
+use MicroFW\Core\PHPConfigurator;
 use MicroFW\Templates\Template;
 
 class Application
