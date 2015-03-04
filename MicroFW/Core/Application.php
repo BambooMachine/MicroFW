@@ -1,7 +1,10 @@
 <?php
 namespace MicroFW\Core;
 
-use MicroFW\Http\Request, MicroFW\Http\Response, MicroFW\Core\Configurator;
+use MicroFW\Core\Configurator;
+use MicroFW\Http\Request;
+use MicroFW\Http\Response;
+use MicroFW\Templates\Template;
 
 class Application
 {
@@ -12,7 +15,7 @@ class Application
      */
     public static function setup($projectPath, $configFile = 'config.php')
     {
-        $configurator = Configurator::createConfigurator($projectPath, $configFile);
+        $configurator = Configurator::create($projectPath, $configFile);
         Template::init($configurator);
         $request = new Request($configurator);
         $template = new Template('homepage.html', []);

@@ -21,7 +21,7 @@ class Configurator implements IConfigurator, \ArrayAccess
      * @param $configFile string
      * @return MicroFW\Core\Configurator
      */
-    public static function createConfigurator($projectPath, $configFile)
+    public static function create($projectPath, $configFile)
     {
         $config = require_once $projectPath . $configFile;
         if (!is_array($config)) {
