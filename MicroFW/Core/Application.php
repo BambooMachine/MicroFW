@@ -13,8 +13,11 @@ class Application
     public static function setup($projectPath)
     {
         $configurator = Configurator::createConfigurator($projectPath);
+        Template::init($configurator);
+
         $request = new Request($configurator);
-        $response = new Response('Hello everyone!');
+        $template = new Template('homepage.html', array());
+        $response = new Response($template->render());
 
         echo($response->getContent());
     }
