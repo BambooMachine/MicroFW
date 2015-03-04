@@ -29,7 +29,7 @@ class Request implements IRequest
     /** @var array */
     private $cookies;
 
-    public function __construct()
+    public function __construct($configurator)
     {
         $this->host = $_SERVER['HTTP_HOST'];
         $this->port = $_SERVER['SERVER_PORT'];
@@ -39,6 +39,7 @@ class Request implements IRequest
         $this->POST = $_POST;
         $this->GET = $_GET;
         $this->cookies = [];
+        $this->configurator = $configurator;
     }
 
     /**
@@ -103,5 +104,13 @@ class Request implements IRequest
     public function getCookies()
     {
         return $this->cookies;
+    }
+
+    /**
+     * @return Configurator
+     */
+    public function getConfig()
+    {
+        return $this->configurator;
     }
 }
