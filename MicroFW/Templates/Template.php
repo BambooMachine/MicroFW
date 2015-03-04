@@ -1,6 +1,8 @@
 <?php
 namespace MicroFW\Templates;
 
+use MicroFW\Core\TemplateDoesNotExistException;
+
 class Template
 {
     /** @var string */
@@ -39,7 +41,13 @@ class Template
     {
         $templateDir = self::$configurator['TEMPLATE_DIR'];
         $fullPath = $templateDir . '/' . $this->templatePath;
-        $content = file_get_contents($fullPath);
+        if (file_exists($fullPath)) {
+            $content = file_get_contents($fullPath);
+        } else {
+            throw new TemplateDoesNotExistException(
+                "$this->templatePath does not exist."
+            );
+        }
 
         return $content;
     }
