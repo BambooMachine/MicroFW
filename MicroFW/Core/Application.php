@@ -22,8 +22,9 @@ class Application
         $urls = [];
         $urls['/test'] = new Response('TEST');
         $urls['/neco'] = new Response('NECO');
-        $response = new Router($urls);
+        $router = new Router($urls);
+        $response = $router->getResponse($request);
 
-        echo($response->getResponse($request)->getContent());
+        echo($response->getContent());
     }
 }

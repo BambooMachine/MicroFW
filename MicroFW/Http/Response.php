@@ -8,6 +8,9 @@ class Response implements IResponse
     /** @var string */
     private $contentType;
 
+    /** @var int */
+    private $statusCode;
+
     /** @var string */
     private $content;
 
@@ -20,8 +23,7 @@ class Response implements IResponse
     {
         $this->content = $content;
         $this->setContentType($contentType);
-
-        http_response_code($statusCode);
+        $this->statusCode = $statusCode;
     }
 
     /**
@@ -82,6 +84,7 @@ class Response implements IResponse
      */
     public function getContent()
     {
+        http_response_code($this->statusCode);
         return $this->content;
     }
 
