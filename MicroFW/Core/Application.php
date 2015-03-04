@@ -1,7 +1,7 @@
 <?php
 namespace MicroFW\Core;
 
-use MicroFW\Http\Request, MicroFW\Http\Response;
+use MicroFW\Http\Request, MicroFW\Http\Response, MicroFW\Core\Configurator;
 
 class Application
 {
@@ -10,9 +10,10 @@ class Application
      *
      * @return void
      */
-    public static function setup()
+    public static function setup($projectPath)
     {
-        $request = new Request();
+        $configurator = Configurator::createConfigurator($projectPath);
+        $request = new Request($configurator);
         $response = new Response('Hello everyone!');
 
         echo($response->getContent());
