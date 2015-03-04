@@ -18,7 +18,7 @@ class Application
         $configurator = PHPConfigurator::create($projectPath, $configFile);
         Template::init($configurator);
         $request = new Request($configurator);
-        $template = new Template('homepage.html', []);
+        $template = new Template('homepage.html', ['test' => 'testovaci retezec']);
         $response = new Response($template->render());
 
         echo($response->getContent());

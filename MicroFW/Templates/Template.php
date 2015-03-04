@@ -42,7 +42,10 @@ class Template
         $templateDir = self::$configurator['TEMPLATE_DIR'];
         $fullPath = $templateDir . '/' . $this->templatePath;
         if (file_exists($fullPath)) {
-            $content = file_get_contents($fullPath);
+            ob_start();
+            $context = $this->context;
+            include($fullPath);
+            $content = ob_get_clean();
         } else {
             throw new TemplateDoesNotExistException(
                 "$this->templatePath does not exist."
