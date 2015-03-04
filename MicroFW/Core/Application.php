@@ -20,8 +20,9 @@ class Application
         Template::init($configurator);
         $request = new Request($configurator);
         $urls = [];
-        $urls['/test'] = new Response('TEST');
-        $urls['/neco'] = new Response('NECO');
+        $urls['test$'] = new Response('TEST');
+        $urls['neco\/(?P<name>\w+)'] = new Response('NECO');
+        $urls[''] = new Response('HOMEPAGE');
         $router = new Router($urls);
         $response = $router->getResponse($request);
 

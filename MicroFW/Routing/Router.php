@@ -24,8 +24,11 @@ class Router
         $path = $request->getPath();
         $response = new Response('<h1>404</h1>', 404);
         foreach ($this->routes as $url => $res) {
-            if ($url === $path) {
+            $matches = [];
+            if (preg_match('/^\/' . $url . '/', $path, $matches)) {
                 $response = $res;
+                var_dump($matches);
+                break;
             }
         }
         return $response;
