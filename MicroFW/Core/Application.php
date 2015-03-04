@@ -12,9 +12,8 @@ class Application
      */
     public static function setup($projectPath, $configFile = 'config.php')
     {
-        Template::init($configurator);
-
         $configurator = Configurator::createConfigurator($projectPath, $configFile);
+        Template::init($configurator);
         $request = new Request($configurator);
         $template = new Template('homepage.html', []);
         $response = new Response($template->render());
