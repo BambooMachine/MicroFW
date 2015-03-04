@@ -30,7 +30,7 @@ class Template
      */
     public static function init($configurator)
     {
-        Template::$configurator = $configurator;
+        self::$configurator = $configurator;
     }
 
     /**
