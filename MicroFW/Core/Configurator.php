@@ -1,7 +1,7 @@
 <?php
 namespace MicroFW\Core;
 
-class Configurator implements IConfigurator, \ArrayAccess
+class PHPConfigurator implements IConfigurator, \ArrayAccess
 {
     /** @var array */
     private $config;
@@ -19,7 +19,7 @@ class Configurator implements IConfigurator, \ArrayAccess
     /**
      * @param $projectPath string
      * @param $configFile string
-     * @return MicroFW\Core\Configurator
+     * @return MicroFW\Core\PHPConfigurator
      */
     public static function create($projectPath, $configFile)
     {

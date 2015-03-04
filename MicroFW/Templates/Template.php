@@ -9,7 +9,7 @@ class Template
     /** @var array */
     private $context;
 
-    /** @var MicroFW\Core\Configurator */
+    /** @var MicroFW\Core\IConfigurator */
     private static $configurator;
 
     /**
@@ -23,7 +23,7 @@ class Template
     }
 
     /**
-     * @param $configurator MicroFW\Core\Configurator
+     * @param $configurator MicroFW\Core\IConfigurator
      * @return void
      */
     public static function init($configurator)
