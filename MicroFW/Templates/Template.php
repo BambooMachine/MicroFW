@@ -3,25 +3,32 @@ namespace MicroFW\Templates;
 
 class Template
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $templatePath;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $context;
 
-    /**
-     * @var MicroFW\Core\Configurato
-     */
+    /** @var MicroFW\Core\Configurator */
     private static $configurator;
 
-    public function __construct($templatePath, $context = array())
+    /**
+     * @param $templatePath string
+     * @param $context array
+     */
+    public function __construct($templatePath, $context = [])
     {
         $this->templatePath = $templatePath;
         $this->context = $context;
+    }
+
+    /**
+     * @param $configurator MicroFW\Core\Configurator
+     * @return void
+     */
+    public static function init($configurator)
+    {
+        Template::$configurator = $configurator;
     }
 
     /**
@@ -35,10 +42,5 @@ class Template
         $content = file_get_contents($fullPath);
 
         return $content;
-    }
-
-    public static function init($configurator)
-    {
-        Template::$configurator = $configurator;
     }
 }
