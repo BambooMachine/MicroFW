@@ -9,11 +9,30 @@ class Configurator implements IConfigurator, \ArrayAccess
     /**
      * @param array
      */
-    public function __construct(array $config = null)
+    private function __construct(array $config = null)
     {
         if (!is_null($config)) {
             $this->loadConfig($config);
         }
+    }
+
+    /**
+     * @param $projectPath string
+     * @param $configFile string
+     * @return MicroFW\Core\Configurator
+     */
+    public static function createConfigurator($projectPath, $configFile)
+    {
+        $config = require_once $projectPath . $configFile;
+        if (!is_array($config)) {
+            throw new \InvalidArgumentException(
+                'Configuration file must return array! '
+                . gettype($config)
+                . ' returned instead.'
+            );
+        }
+
+        return new self($config);
     }
 
     /**
@@ -58,7 +77,8 @@ class Configurator implements IConfigurator, \ArrayAccess
         if (!is_array($config)) {
             throw new \InvalidArgumentException(
                 'Parameter $config has to be of type array. '
-                . gettype($config) . ' given.'
+                . gettype($config)
+                . ' given.'
             );
         }
 

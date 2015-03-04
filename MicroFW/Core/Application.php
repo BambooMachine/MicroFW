@@ -10,13 +10,13 @@ class Application
      *
      * @return void
      */
-    public static function setup($projectPath)
+    public static function setup($projectPath, $configFile = 'config.php')
     {
-        $configurator = Configurator::createConfigurator($projectPath);
         Template::init($configurator);
 
+        $configurator = Configurator::createConfigurator($projectPath, $configFile);
         $request = new Request($configurator);
-        $template = new Template('homepage.html', array());
+        $template = new Template('homepage.html', []);
         $response = new Response($template->render());
 
         echo($response->getContent());
