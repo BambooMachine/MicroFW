@@ -1,7 +1,7 @@
 <?php
 namespace MicroFW\Core;
 
-class Configurator implements IConfigurator
+class Configurator implements IConfigurator, \ArrayAccess
 {
     /** @var array */
     private $config;
@@ -17,6 +17,39 @@ class Configurator implements IConfigurator
     }
 
     /**
+     * @param $key mixed
+     * @return bool
+     */
+    public function offsetExists($key)
+    {
+        return isset($this->config[$key]);
+    }
+
+    /**
+     * @param $key mixed
+     * @return mixed
+     */
+    public function offsetGet($key)
+    {
+        return $this->getValue($key);
+    }
+
+    /**
+     * @param $key mixed
+     * @return void
+     */
+    public function offsetUnset($key)
+    {}
+
+    /**
+     * @param $key mixed
+     * @param $value mixed
+     * @return void
+     */
+    public function offsetSet($key, $value)
+    {}
+
+    /**
      * @param $config array
      * @return void
      */
@@ -24,7 +57,8 @@ class Configurator implements IConfigurator
     {
         if (!is_array($config)) {
             throw new \InvalidArgumentException(
-                'Parameter $config has to be of type array. ' . gettype($config) . ' given.'
+                'Parameter $config has to be of type array. '
+                . gettype($config) . ' given.'
             );
         }
 
@@ -37,13 +71,6 @@ class Configurator implements IConfigurator
      */
     public function parseConfig()
     {
-        foreach ($this->config as $item) {
-            if (is_array($item)) {
-                throw new \InvalidArgumentException(
-                    'Config values cannot be arrays. Only one level of nesting is allowed.'
-                );
-            }
-        }
     }
 
     /**
@@ -52,8 +79,10 @@ class Configurator implements IConfigurator
      */
     public function getValue($key)
     {
-        if (!isset($this->config[$key])) {
-            throw new \InvalidArgumentException("Key $key doesn't exists in given config.");
+        if (!$this->offsetExists($key)) {
+            throw new \InvalidArgumentException(
+                "Key $key doesn't exists in given config."
+            );
         }
 
         return $this->config[$key];
