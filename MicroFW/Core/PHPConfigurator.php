@@ -11,11 +11,9 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
     /**
      * @param array
      */
-    private function __construct(array $config = null)
+    public function __construct(array $config)
     {
-        if (!is_null($config)) {
-            $this->loadConfig($config);
-        }
+        $this->loadConfig($config);
     }
 
     /**
