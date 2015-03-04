@@ -2,13 +2,17 @@
 namespace MicroFW\Templates;
 
 use MicroFW\Core\TemplateDoesNotExistException;
+use MicroFW\Templates\Context;
 
 class Template
 {
     /** @var string */
     private $templatePath;
 
-    /** @var array */
+    /** @var string */
+    private $fullTemplatePath;
+
+    /** @var MicroFW\Tempalate\Context */
     private $context;
 
     /** @var MicroFW\Core\IConfigurator */
@@ -20,8 +24,10 @@ class Template
      */
     public function __construct($templatePath, $context = [])
     {
+        $templateDir = self::$configurator['TEMPLATE_DIR'];
         $this->templatePath = $templatePath;
-        $this->context = $context;
+        $this->fullTemplatePath = $templateDir . '/' . $this->templatePath;
+        $this->context = new Context($context);
     }
 
     /**
@@ -39,12 +45,10 @@ class Template
      */
     public function render()
     {
-        $templateDir = self::$configurator['TEMPLATE_DIR'];
-        $fullPath = $templateDir . '/' . $this->templatePath;
-        if (file_exists($fullPath)) {
+        if (file_exists($this->fullTemplatePath)) {
             ob_start();
             $context = $this->context;
-            include($fullPath);
+            include($this->fullTemplatePath);
             $content = ob_get_clean();
         } else {
             throw new TemplateDoesNotExistException(
