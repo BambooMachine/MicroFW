@@ -3,8 +3,9 @@ namespace MicroFW\Core;
 
 use MicroFW\Http\Request;
 use MicroFW\Http\Response;
-use MicroFW\Core\PHPConfigurator;
 use MicroFW\Templates\Template;
+use MicroFW\Core\PHPConfigurator;
+use MicroFW\Routing\Router;
 
 class Application
 {
@@ -18,9 +19,11 @@ class Application
         $configurator = PHPConfigurator::create($projectPath, $configFile);
         Template::init($configurator);
         $request = new Request($configurator);
-        $template = new Template('homepage.html', ['test' => 'testovaci retezec']);
-        $response = new Response($template->render());
+        $urls = [];
+        $urls['/test'] = new Response('TEST');
+        $urls['/neco'] = new Response('NECO');
+        $response = new Router($urls);
 
-        echo($response->getContent());
+        echo($response->getResponse($request)->getContent());
     }
 }
