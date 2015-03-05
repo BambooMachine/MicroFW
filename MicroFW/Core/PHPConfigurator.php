@@ -24,13 +24,6 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
     public static function create($projectPath, $configFile)
     {
         $config = require_once($projectPath . '/' . $configFile);
-        if (!is_array($config)) {
-            throw new \InvalidArgumentException(
-                'Configuration file must return array! '
-                . gettype($config)
-                . ' returned instead.'
-            );
-        }
 
         return new self($config);
     }
@@ -76,16 +69,8 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
      * @param $config array
      * @return void
      */
-    public function loadConfig($config)
+    public function loadConfig(array $config)
     {
-        if (!is_array($config)) {
-            throw new \InvalidArgumentException(
-                'Parameter $config has to be of type array. '
-                . gettype($config)
-                . ' given.'
-            );
-        }
-
         $this->config = $config;
         $this->parseConfig();
     }
@@ -93,7 +78,7 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
     /**
      * @return void
      */
-    public function parseConfig()
+    private function parseConfig()
     {
     }
 

@@ -4,15 +4,16 @@ namespace MicroFW\Core;
 interface IConfigurator
 {
     /**
-     * @param $path array|string
-     * @return void
+     * @param $configPath string
+     * @param $configName string
      */
-    public function loadConfig($config);
+    public static function create($configPath, $configName);
 
     /**
+     * @param $config array
      * @return void
      */
-    public function parseConfig();
+    public function loadConfig(array $config);
 
     /**
      * @param $key mixed
