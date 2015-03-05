@@ -44,14 +44,15 @@ class Template
      * @return string
      */
     public function render()
-    {
+	{
+		var_dump($this->fullTemplatePath);
         if (file_exists($this->fullTemplatePath)) {
             ob_start();
             $context = $this->context;
             include($this->fullTemplatePath);
             $content = ob_get_clean();
         } else {
-            throw new TemplateDoesNotExistException(
+            throw new TemplateNotFoundException(
                 "$this->templatePath does not exist."
             );
         }

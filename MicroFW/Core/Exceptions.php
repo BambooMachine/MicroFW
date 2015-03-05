@@ -4,5 +4,5 @@ namespace MicroFW\Core;
 class ReadOnlyAttributeException extends \Exception
 {}
 
-class TemplateDoesNotExistException extends \Exception
+class TemplateNotFoundException extends \Exception
 {}
