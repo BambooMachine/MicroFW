@@ -1,8 +1,8 @@
 <?php
-namespace MicroFW\Templates;
+namespace MicroFW\Templating;
 
-use MicroFW\Core\TemplateDoesNotExistException;
-use MicroFW\Templates\Context;
+use MicroFW\Core\TemplateNotFoundException;
+use MicroFW\Templating\Context;
 
 class Template
 {

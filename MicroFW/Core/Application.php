@@ -3,7 +3,7 @@ namespace MicroFW\Core;
 
 use MicroFW\Http\Request;
 use MicroFW\Http\Response;
-use MicroFW\Templates\Template;
+use MicroFW\Templating\Template;
 use MicroFW\Core\PHPConfigurator;
 use MicroFW\Routing\Router;
 

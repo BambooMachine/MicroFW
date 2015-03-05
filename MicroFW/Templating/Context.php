@@ -1,5 +1,5 @@
 <?php
-namespace MicroFW\Templates;
+namespace MicroFW\Templating;
 
 class Context
 {
