@@ -27,10 +27,23 @@ class Router
             $matches = [];
             if (preg_match('/^\/' . $url . '/', $path, $matches)) {
                 $response = $res;
+                $matches = $this->cleanRoutesParameters($matches);
                 var_dump($matches);
                 break;
             }
         }
         return $response;
+    }
+
+    private function cleanRoutesParameters($parameters)
+    {
+        $cleanedParameters = [];
+        foreach ($parameters as $name => $value) {
+            if (is_string($name)) {
+                $cleanedParameters[$name] = $value;
+            }
+        }
+
+        return $cleanedParameters;
     }
 }
