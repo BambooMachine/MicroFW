@@ -25,7 +25,7 @@ class Router
         $response = new Response('<h1>404</h1>', 404);
         foreach ($this->routes as $url => $res) {
             $matches = [];
-            if (preg_match('/^\/' . $url . '/', $path, $matches)) {
+            if (preg_match('/^[\/]{0,1}' . $url . '/', $path, $matches)) {
                 $response = $res;
                 $matches = $this->cleanRoutesParameters($matches);
                 var_dump($matches);
