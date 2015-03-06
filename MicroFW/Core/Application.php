@@ -6,6 +6,7 @@ use MicroFW\Http\Response;
 use MicroFW\Templating\Template;
 use MicroFW\Core\PHPConfigurator;
 use MicroFW\Routing\Router;
+use MicroFW\Core\Exceptions\NotValidResponseException;
 
 class Application
 {
@@ -28,7 +29,11 @@ class Application
         Template::init($configurator);
         $request = new Request($configurator);
         $router = new Router(include($projectPath . '/urls.php'));
-        $response = $router->getResponse($request);
+        try {
+            $response = $router->getResponse($request);
+        } catch (NotValidResponseException $e) {
+            $response = new Response($e->getMessage());
+        }
 
         echo($response->getContent());
     }
