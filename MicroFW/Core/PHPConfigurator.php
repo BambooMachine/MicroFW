@@ -23,7 +23,13 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
      */
     public static function create($projectPath, $configFile)
     {
-        $config = require_once($projectPath . '/' . $configFile);
+        $fullPath = $projectPath . '/' . $configFile;
+        if (!file_exists($fullPath)) {
+            throw new \InvalidArgumentException(
+                "Config file not found on $fullPath."
+            );
+        }
+        $config = require_once($fullPath);
 
         return new self($config);
     }
