@@ -12,6 +12,9 @@ class Application
     /**
      * Start and setup the framework
      *
+     * @param $projectPath string
+     * @param $configFile string
+     * @param $allowDefaults bool
      * @return void
      */
     public static function setup(
