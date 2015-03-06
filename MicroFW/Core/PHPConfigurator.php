@@ -21,15 +21,20 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
      * @param $configFile string
      * @return MicroFW\Core\PHPConfigurator
      */
-    public static function create($projectPath, $configFile)
+    public static function create($projectPath, $configFile, $allowDefaults)
     {
         $fullPath = $projectPath . '/' . $configFile;
         if (!file_exists($fullPath)) {
-            throw new \InvalidArgumentException(
-                "Config file not found on $fullPath."
-            );
+            if (!$allowDefaults) {
+                throw new \InvalidArgumentException(
+                    "Config file not found on $fullPath."
+                );
+            } else {
+                $config = IConfigurator::DEFAULT_VALUES;
+            }
+        } else {
+            $config = require_once($fullPath);
         }
-        $config = require_once($fullPath);
 
         return new self($config);
     }

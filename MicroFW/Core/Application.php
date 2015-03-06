@@ -14,9 +14,14 @@ class Application
      *
      * @return void
      */
-    public static function setup($projectPath, $configFile = 'config.php')
-    {
-        $configurator = PHPConfigurator::create($projectPath, $configFile);
+    public static function setup(
+        $projectPath,
+        $configFile = 'config.php',
+        $allowDefaults = false
+    ) {
+        $configurator = PHPConfigurator::create(
+            $projectPath, $configFile, $allowDefaults
+        );
         Template::init($configurator);
         $request = new Request($configurator);
         $urls = [];
