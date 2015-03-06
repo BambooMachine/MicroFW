@@ -1,7 +1,7 @@
 <?php
 namespace MicroFW\Templating;
 
-use MicroFW\Core\Exceptions\TemplateNotFoundException;
+use MicroFW\Core\Exceptions\TemplateDoesNotExistException;
 use MicroFW\Templating\Context;
 
 class Template
@@ -44,15 +44,14 @@ class Template
      * @return string
      */
     public function render()
-	{
-		var_dump($this->fullTemplatePath);
+    {
         if (file_exists($this->fullTemplatePath)) {
             ob_start();
             $context = $this->context;
             include($this->fullTemplatePath);
             $content = ob_get_clean();
         } else {
-            throw new TemplateNotFoundException(
+            throw new TemplateDoesNotExistException(
                 "$this->templatePath does not exist."
             );
         }
