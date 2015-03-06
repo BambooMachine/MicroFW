@@ -2,6 +2,8 @@
 namespace MicroFW\Routing;
 
 use MicroFW\Http\Response;
+use MicroFW\Http\IResponse;
+use MicroFW\Core\Exceptions\NotValidResponseException;
 
 class Router
 {
@@ -23,16 +25,21 @@ class Router
     {
         $path = $request->getPath();
         $response = new Response('<h1>404</h1>', 404);
-        foreach ($this->routes as $url => $res) {
+        foreach ($this->routes as $url => $controller) {
             $matches = [];
             if (preg_match('/^[\/]{0,1}' . $url . '/', $path, $matches)) {
-                $response = $res;
                 $matches = $this->cleanRoutesParameters($matches);
-                var_dump($matches);
+                $response = $controller($request, $matches);
                 break;
             }
         }
-        return $response;
+        if ($response instanceof IResponse) {
+            return $response;
+        } else {
+            throw new NotValidResponseException(
+                gettype($response) ." is not a response object."
+            );
+        }
     }
 
     private function cleanRoutesParameters($parameters)
