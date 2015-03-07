@@ -29,7 +29,7 @@ class Router
             $matches = [];
             if (preg_match('/^[\/]{0,1}' . $url . '/', $path, $matches)) {
                 $matches = $this->cleanRoutesParameters($matches);
-                $response = $controller($request, $matches);
+                $response = call_user_func($controller, $request, $matches);
                 break;
             }
         }
