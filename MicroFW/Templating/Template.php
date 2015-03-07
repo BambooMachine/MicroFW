@@ -24,9 +24,9 @@ class Template
      */
     public function __construct($templatePath, $context = [])
     {
-        $templateDir = self::$configurator['TEMPLATE_DIR'];
+        $templateDirs = self::$configurator['TEMPLATE_DIRS'];
         $this->templatePath = $templatePath;
-        $this->fullTemplatePath = $templateDir . '/' . $this->templatePath;
+        $this->findExistingTemplate($templateDirs);
         $this->context = new Context($context);
     }
 
@@ -45,17 +45,26 @@ class Template
      */
     public function render()
     {
-        if (file_exists($this->fullTemplatePath)) {
-            ob_start();
-            $context = $this->context;
-            include($this->fullTemplatePath);
-            $content = ob_get_clean();
-        } else {
-            throw new TemplateDoesNotExistException(
-                "$this->templatePath does not exist."
-            );
-        }
+        ob_start();
+        $context = $this->context;
+        include($this->fullTemplatePath);
+        $content = ob_get_clean();
 
         return $content;
+    }
+
+    private function findExistingTemplate($templateDirs)
+    {
+        foreach ($templateDirs as $dir) {
+            $fullTemplatePath = $dir . '/' . $this->templatePath;
+            if (file_exists($fullTemplatePath)) {
+                $this->fullTemplatePath = $fullTemplatePath;
+                return;
+            }
+        }
+
+        throw new TemplateDoesNotExistException(
+                "$this->templatePath does not exist."
+        );
     }
 }

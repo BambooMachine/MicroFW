@@ -6,7 +6,7 @@ interface IConfigurator
     /** @var array */
     const DEFAULT_VALUES = [
         'APP_DIR' => __DIR__,
-        'TEMPLATE_DIR' => __DIR__ . '/templates/',
+        'TEMPLATE_DIRS' => [__DIR__ . '/templates/'],
         'ASSETS_DIR' => __DIR__ . '/assets/',
     ];
 
