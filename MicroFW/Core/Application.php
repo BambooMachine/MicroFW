@@ -23,9 +23,7 @@ class Application
         $configFile = 'config.php',
         $allowDefaults = false
     ) {
-        $configurator = PHPConfigurator::create(
-            $projectPath, $configFile, $allowDefaults
-        );
+        $configurator = PHPConfigurator::create($projectPath, $configFile);
         Template::init($configurator);
         $request = new Request($configurator);
         $router = new Router(include($projectPath . '/urls.php'));

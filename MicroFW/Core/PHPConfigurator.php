@@ -13,7 +13,8 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
      */
     public function __construct(array $config)
     {
-        $this->loadConfig($config);
+        $this->config = $config;
+        $this->loadDefaults();
     }
 
     /**
@@ -21,17 +22,13 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
      * @param $configFile string
      * @return MicroFW\Core\PHPConfigurator
      */
-    public static function create($projectPath, $configFile, $allowDefaults)
+    public static function create($projectPath, $configFile)
     {
         $fullPath = $projectPath . '/' . $configFile;
         if (!file_exists($fullPath)) {
-            if (!$allowDefaults) {
-                throw new \InvalidArgumentException(
-                    "Config file not found on $fullPath."
-                );
-            } else {
-                $config = IConfigurator::DEFAULT_VALUES;
-            }
+            throw new \InvalidArgumentException(
+                "Config file not found on $fullPath."
+            );
         } else {
             $config = require_once($fullPath);
         }
@@ -77,20 +74,18 @@ class PHPConfigurator implements IConfigurator, \ArrayAccess
     }
 
     /**
-     * @param $config array
      * @return void
      */
-    public function loadConfig(array $config)
+    public function loadDefaults()
     {
-        $this->config = $config;
-        $this->parseConfig();
-    }
-
-    /**
-     * @return void
-     */
-    private function parseConfig()
-    {
+        $defaults = IConfigurator::DEFAULT_VALUES;
+        foreach ($defaults as $name => $value) {
+            if (array_key_exists($name, $this->config) && is_array($value)) {
+                $this->config[$name] = array_merge($this->config[$name], $value);
+            } else if (!array_key_exists($name, $this->config)){
+                $this->config[$name] = $value;
+            }
+        }
     }
 
     /**

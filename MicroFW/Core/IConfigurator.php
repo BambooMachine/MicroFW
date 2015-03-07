@@ -20,13 +20,12 @@ interface IConfigurator
      * @param $configPath string
      * @param $configName string
      */
-    public static function create($configPath, $configName, $allowDefaults);
+    public static function create($configPath, $configName);
 
     /**
-     * @param $config array
      * @return void
      */
-    public function loadConfig(array $config);
+    public function loadDefaults();
 
     /**
      * @param $key mixed
