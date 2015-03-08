@@ -13,7 +13,7 @@ class Controller implements IController
     private $args;
 
     /** @var array */
-    public static $allowedMethods = [
+    protected $allowedMethods = [
         'GET', 'POST'
     ];
 
@@ -33,7 +33,7 @@ class Controller implements IController
         $controller = new $class($request, $args);
         $response = null;
         $method = $request->getMethod();
-        if (in_array($method, static::$allowedMethods)) {
+        if (in_array($method, $controller->allowedMethods)) {
             $response = $controller->$method();
         } else {
             throw new MethodNotAllowedException("$method method is now allowed.");
