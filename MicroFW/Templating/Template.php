@@ -20,14 +20,12 @@ class Template
 
     /**
      * @param $templatePath string
-     * @param $context array
      */
-    public function __construct($templatePath, $context = [])
+    public function __construct($templatePath)
     {
         $templateDirs = self::$configurator['TEMPLATE_DIRS'];
         $this->templatePath = $templatePath;
         $this->findExistingTemplate($templateDirs);
-        $this->context = new Context($context);
     }
 
     /**
@@ -41,12 +39,13 @@ class Template
 
     /**
      * Render template and return it.
+     * @param $context array
      * @return string
      */
-    public function render()
+    public function render($context = [])
     {
         ob_start();
-        $context = $this->context;
+        $context = new Context($context);
         include($this->fullTemplatePath);
         $content = ob_get_clean();
 
