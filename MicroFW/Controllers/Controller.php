@@ -1,6 +1,7 @@
 <?php
 namespace MicroFW\Controllers;
 
+use MicroFW\Http\Response;
 use MicroFW\Controllers\IController;
 use MicroFW\Controllers\Exceptions\MethodNotAllowedException;
 
@@ -27,6 +28,11 @@ class Controller implements IController
         $this->args = $args;
     }
 
+    /**
+     * @param $request IRequest
+     * @param $args array
+     * @return IResponse
+     */
     public static function controller($request, $args = [])
     {
         $class = get_called_class();
@@ -42,16 +48,27 @@ class Controller implements IController
         return $response;
     }
 
+    /**
+     * @return array
+     */
     public function getContext()
     {
         return [];
     }
 
+    /**
+     * @return IResponse
+     */
     public function GET()
     {
+        return new Response('');
     }
 
+    /**
+     * @return IReponse
+     */
     public function POST()
     {
+        return new Response('');
     }
 }

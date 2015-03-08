@@ -7,8 +7,12 @@ use MicroFW\Http\Response;
 
 class TemplateController extends Controller
 {
+    /** @var string */
     protected $templateName;
 
+    /**
+     * @return IResponse
+     */
     public function GET()
     {
         $context = $this->getContext();
@@ -16,6 +20,10 @@ class TemplateController extends Controller
         return $this->renderAndResponse($context);
     }
 
+    /**
+     * @param $context array
+     * @return IReponse
+     */
     private function renderAndResponse($context)
     {
         $template = new Template($this->templateName);
