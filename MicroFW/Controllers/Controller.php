@@ -12,6 +12,11 @@ class Controller implements IController
     /** @var array */
     private $args;
 
+    /** @var array */
+    public static $allowedMethods = [
+        'GET', 'POST'
+    ];
+
     /**
      * @param $request IRequest
      * @param @args array
@@ -28,13 +33,10 @@ class Controller implements IController
         $controller = new $class($request, $args);
         $response = null;
         $method = $request->getMethod();
-        switch ($method) {
-            case 'GET':
-                $response = $controller->GET();
-                break;
-            case 'POST':
-                $response = $controller->POST();
-                break;
+        if (in_array($method, static::$allowedMethods)) {
+            $response = $controller->$method();
+        } else {
+            throw new MethodNotAllowedException("$method method is now allowed.");
         }
 
         return $response;
@@ -47,11 +49,9 @@ class Controller implements IController
 
     public function GET()
     {
-        throw new MethodNotAllowedException('GET method is not allowed.');
     }
 
     public function POST()
     {
-        throw new MethodNotAllowedException('POST method is not allowed.');
     }
 }
