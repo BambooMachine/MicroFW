@@ -1,16 +1,10 @@
 <?php
 namespace MicroFW\Http;
 
-use MicroFW\Http\IResponse;
+use MicroFW\Http\BaseResponse;
 
-class Response implements IResponse
+class Response extends BaseResponse
 {
-    /** @var string */
-    private $contentType;
-
-    /** @var int */
-    private $statusCode;
-
     /** @var string */
     private $content;
 
@@ -21,71 +15,8 @@ class Response implements IResponse
      */
     public function __construct($content = '', $statusCode = 200, $contentType = 'text/html')
     {
+        parent::__construct($statusCode, $contentType);
         $this->content = $content;
-        $this->setContentType($contentType);
-        $this->statusCode = $statusCode;
-    }
-
-    /**
-     * @return array
-     */
-    public function getHeaders()
-    {
-        return headers_list();
-    }
-
-    /**
-     * @param $name string
-     * @param $value string
-     * @return void
-     */
-    public function setHeader($name, $value)
-    {
-        header($name . ': ' . $value);
-    }
-
-    /**
-     * @param $name string
-     * @return void
-     */
-    public function removeHeader($name)
-    {
-        header_remove($name);
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatusCode()
-    {
-        return http_response_code();
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentType()
-    {
-        return $this->contentType;
-    }
-
-    /**
-     * @param $contentType string
-     * @return void
-     */
-    public function setContentType($contentType)
-    {
-        $this->contentType = $contentType;
-        $this->setHeader('Content-Type', $contentType);
-    }
-
-    /**
-     * @return string
-     */
-    public function getContent()
-    {
-        http_response_code($this->statusCode);
-        return $this->content;
     }
 
     /**
@@ -95,5 +26,15 @@ class Response implements IResponse
     public function addContent($content)
     {
         $this->content .= $content;
+    }
+
+    /**
+     * @return void
+     */
+    public function send()
+    {
+        parent::send();
+
+        echo($this->content);
     }
 }

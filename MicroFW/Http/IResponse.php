@@ -22,14 +22,15 @@ interface IResponse
     public function removeHeader($name);
 
     /**
+     * @param $statusCode int
+     * @return void
+     */
+    public function setStatusCode($statusCode);
+
+    /**
      * @return int
      */
     public function getStatusCode();
-
-    /**
-     * @return string
-     */
-    public function getContentType();
 
     /**
      * @param $contentType string
@@ -40,10 +41,10 @@ interface IResponse
     /**
      * @return string
      */
-    public function getContent();
+    public function getContentType();
 
     /**
      * @return void
      */
-    public function addContent($content);
+    public function send();
 }

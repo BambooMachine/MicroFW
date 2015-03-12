@@ -16,7 +16,6 @@ class Application
      *
      * @param $projectPath string
      * @param $configFile string
-     * @param $allowDefaults bool
      * @return void
      */
     public static function setup($projectPath, $configFile = 'config.php') {
@@ -37,6 +36,6 @@ class Application
             $response = new Response($e->getMessage());
         }
 
-        echo($response->getContent());
+        $response->send();
     }
 }
