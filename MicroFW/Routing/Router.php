@@ -25,11 +25,11 @@ class Router
     {
         $path = $request->getPath();
         $response = new Response('<h1>404</h1>', 404);
-        foreach ($this->routes as $url => $controller) {
+        foreach ($this->routes as $url) {
             $matches = [];
-            if (preg_match('/^[\/]{0,1}' . $url . '/', $path, $matches)) {
+            if (preg_match('/^[\/]{0,1}' . $url->getRegex() . '/', $path, $matches)) {
                 $matches = $this->cleanRoutesParameters($matches);
-                $response = call_user_func($controller, $request, $matches);
+                $response = $url->callController($request, $matches);
                 break;
             }
         }
